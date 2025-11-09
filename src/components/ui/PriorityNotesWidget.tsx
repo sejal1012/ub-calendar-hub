@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState, ChangeEvent, KeyboardEvent } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateData, clearData } from '../../store/planSlice';
+import LoadingOverlay from "react-loading-overlay-ts";
 /**
  * PriorityNotesWidget — compact, dynamic priority note-taker (TSX)
  * Scopes: today | week | month | semester | year
@@ -52,6 +53,7 @@ function saveStore(store: Store): void {
 
 const PriorityNotesWidget: React.FC = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [scope, setScope] = useState<Scope>("today");
   const [input, setInput] = useState<string>("");
   const [store, setStore] = useState<Store>(() => loadStore());
@@ -81,7 +83,9 @@ async function addNote(): Promise<void> {
   setInput("");
 
   try {
+    setLoading(true);
     // 2) call your POST API
+
     const resp = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -91,6 +95,7 @@ async function addNote(): Promise<void> {
       }),
     });
     const result = await resp.json();
+    setLoading(false);
 console.log(result)
     dispatch(updateData(result.plan));
 
@@ -109,11 +114,12 @@ console.log(result)
   } catch (err) {
     // 4) rollback on error
     console.error(err);
+    // setLoading(false);
+
     setStore((s) => ({
       ...s,
       [scope]: s[scope].filter((n) => n.id !== tempId),
     }));
-    alert("Could not save note. Please try again.");
   }
 }
 
@@ -241,7 +247,24 @@ console.log(result)
           Clear {scope}
         </button>
       </div>
+       <LoadingOverlay
+      active={loading}
+      spinner
+      text="Loading..."
+      styles={{
+        overlay: (base) => ({
+          ...base,
+          position: "fixed",
+          top: 0, left: 0, right: 0, bottom: 0, // cover whole screen
+          zIndex: 9999,
+        }),
+      }}
+    >
+      {/* your app content */}
+      <div>Your page/app content here</div>
+    </LoadingOverlay>
     </div>
+    
   );
 };
 
