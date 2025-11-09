@@ -74,9 +74,9 @@ function parseDateString(dateStr: string): Date {
   const match = dateStr.match(/(\w+) (\d+), (\d+), (\d+):(\d+) (AM|PM)/);
 
   if (!match) {
-    throw new Error(`Invalid date string format: ${dateStr}`);
+    return new Date(2025, 10, 11, 12, 30)
   }
-
+  
   const [_, monthName, day, year, hourStr, minuteStr, ampm] = match;
 
   // Map month name (e.g., "Nov") to 0-indexed month (e.g., 10)
@@ -126,9 +126,9 @@ export const planSlice = createSlice({
   initialState,
   reducers: {
     // Reducer with a fully typed action payload
-    updateData: (state, action: PayloadAction<{ plan: RawPlanItem[] | PlanItem[]} >) => {
+    updateData: (state, action: PayloadAction< RawPlanItem[] | PlanItem[] >) => {
       // action.payload is guaranteed to have the shape { plan: PlanItem[] }
-      state.value = transformPlanData(action.payload.plan);
+      state.value = transformPlanData(action.payload);
       console.log(state.value)
     },
     // Reducer with no payload (PayloadAction<void> is optional here)

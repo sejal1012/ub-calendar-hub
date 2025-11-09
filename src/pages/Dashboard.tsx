@@ -9,8 +9,29 @@ import { toast } from "sonner";
 import BullRushLight from "../assets/BullRush-Light.svg";
 import { Link } from "react-router-dom";
 import PriorityNotesWidget from "../components/ui/PriorityNotesWidget";
-import ChatLauncher from "../components/ui/ChatLauncher";
+import ChatLauncher, { ChatMessage } from "../components/ui/ChatLauncher";
 import Ub_mascot from "../assets/ub_mascot.png";
+async function onSend(
+  history: ChatMessage[],
+  userText: string
+): Promise<string> {
+  const resp = await fetch("https://ubhacking2025-ubprioritize-ai.onrender.com/api/chat/ask", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ "question": userText }),
+  });
+
+  if (!resp.ok) {
+    const errText = await resp.text().catch(() => "");
+    throw new Error(`HTTP ${resp.status} ${errText}`);
+  }
+
+  const data = await resp.json();
+  return data.answer as string; // must return a string for ChatLauncher
+}
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
@@ -233,7 +254,7 @@ const Dashboard = () => {
         </Card>
       </main>
         <>
-      <ChatLauncher  title="BullsFocus Assistant" iconSrc={Ub_mascot}
+      <ChatLauncher onSend={onSend} title="BullsFocus Assistant" iconSrc={Ub_mascot}
   placeholder="Life is good. Just do all is well"/>
     </>
     </div>

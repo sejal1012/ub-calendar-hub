@@ -41,6 +41,19 @@ const MyCalendar = ({ todayData = dummyData }) => {
   const dispatch = useDispatch();
   
   useEffect(() => {
+    const fetchData = async () => {
+         const resp = await fetch("https://ubhacking2025-ubprioritize-ai.onrender.com/api/schedule/weekschedules/ava@buffalo.edu", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          });
+          const result = await resp.json();
+          console.log(result)
+          dispatch(updateData(result));
+    }
+
+    fetchData();
+  }, [])
+  useEffect(() => {
     if (todayData && todayData !== dummyData) {
       // Assuming todayData is an array of events with proper date fields
       const formattedEvents = todayData.map(event => ({
@@ -48,7 +61,7 @@ const MyCalendar = ({ todayData = dummyData }) => {
         start: new Date(event.start),
         end: new Date(event.end || event.start),
       }))
-      dispatch(updateData({plan:formattedEvents}));
+      dispatch(updateData(formattedEvents));
     }
   }, [todayData])
 

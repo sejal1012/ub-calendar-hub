@@ -92,7 +92,7 @@ async function addNote(): Promise<void> {
     });
     const result = await resp.json();
 console.log(result)
-    dispatch(updateData(result));
+    dispatch(updateData(result.plan));
 
     if (!resp.ok) throw new Error(`Server responded ${resp.status}`);
     const data: CreateNoteResponse = await resp.json();
