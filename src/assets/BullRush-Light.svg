@@ -1,0 +1,49 @@
+<!-- BullRush — Today Priority Logo (Light-Blue Horn Variant) -->
+<!-- Save as BullRush-Light.svg. Inherits currentColor; blue accents added. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- soft tile using current text color -->
+  <rect x="4" y="6" width="56" height="54" rx="14" fill="currentColor" opacity="0.06"/>
+
+  <!-- Calendar frame -->
+  <g>
+    <rect x="10" y="14" width="44" height="36" rx="8" fill="#ffffff"/>
+    <!-- light-blue header bar -->
+    <rect x="10" y="14" width="44" height="10" rx="8" fill="#3b82f6"/>
+    <!-- binding rings match header -->
+    <rect x="18" y="10" width="4" height="8" rx="2" fill="#3b82f6"/>
+    <rect x="42" y="10" width="4" height="8" rx="2" fill="#3b82f6"/>
+
+    <!-- bull icon + priority cues -->
+    <g transform="translate(0,2)">
+      <!-- face ring -->
+      <circle cx="32" cy="36" r="10.5" stroke="#0f172a" stroke-width="2" fill="none"/>
+
+      <!-- prominent horns (light blue, double-arc) -->
+      <path d="M22 31c3-4 6-6 10-6s7 2 10 6" stroke="#60a5fa" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M20 29c4-5 8-7 12-7s8 2 12 7" stroke="#93c5fd" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+      <!-- inner arc for facial line -->
+      <path d="M23 32c2.8-3.2 6.5-4.8 9-4.8s6.2 1.6 9 4.8" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+
+      <!-- priority check in blue -->
+      <path d="M27 37l3 3 7-8" stroke="#1d4ed8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- small lightning spur for urgency -->
+      <path d="M30 26h5l-3 5h4l-5 8 2-6h-4l2-7z" fill="#f59e0b" opacity="0.95"/>
+    </g>
+
+    <!-- TODAY chip (pale blue) -->
+    <g>
+      <rect x="14" y="18" width="18" height="6" rx="3" fill="#dbeafe" opacity="1"/>
+      <text x="23" y="22.6" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="4.6" font-weight="700" fill="#1e3a8a">TODAY</text>
+    </g>
+
+    <!-- outline -->
+    <rect x="10" y="14" width="44" height="36" rx="8" stroke="#0f172a" stroke-width="1" fill="none"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g aria-label="BullRush" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-weight="800" font-size="8" fill="#0f172a">
+    <text x="32" y="60" text-anchor="middle">BullRush</text>
+  </g>
+</svg>

@@ -6,7 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { GraduationCap, LogOut, Calendar, Clock, BookOpen, Award } from "lucide-react";
 import { toast } from "sonner";
-
+import BullRushLight from "../assets/BullRush-Light.svg";
+import { Link } from "react-router-dom";
+import PriorityNotesWidget from "../components/ui/PriorityNotesWidget";
+import ChatLauncher from "../components/ui/ChatLauncher";
+import Ub_mascot from "../assets/ub_mascot.png";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
@@ -74,48 +78,67 @@ const Dashboard = () => {
               <LogOut className="w-4 h-4 mr-2" />
               Logout
             </Button>
+            
           </div>
+         
         </div>
       </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 space-y-6">
         {/* Welcome Section */}
-        <Card className="shadow-card">
-          <CardHeader>
-            <CardTitle className="text-2xl">Welcome back, {studentInfo.name}!</CardTitle>
-            <CardDescription>Student Portal - Spring 2026 Registration</CardDescription>
+        <div className="flex">
+              <div className="p-4 w-full md:w-2/5">
+          <PriorityNotesWidget />
+          </div>
+        <Card className="shadow-card w-full md:w-2/5">
+          <CardHeader className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-2xl">Welcome back, {studentInfo.name}!</CardTitle>
+              <CardDescription>Student Portal - Spring 2026 Registration</CardDescription>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Student ID</p>
-                <p className="font-semibold">{studentInfo.studentId}</p>
+          <p className="text-sm text-muted-foreground">Student ID</p>
+          <p className="font-semibold">{studentInfo.studentId}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Major</p>
-                <p className="font-semibold">{studentInfo.major}</p>
+          <p className="text-sm text-muted-foreground">Major</p>
+          <p className="font-semibold">{studentInfo.major}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Year</p>
-                <p className="font-semibold">{studentInfo.year}</p>
+          <p className="text-sm text-muted-foreground">Year</p>
+          <p className="font-semibold">{studentInfo.year}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">GPA</p>
-                <p className="font-semibold">{studentInfo.gpa}</p>
+          <p className="text-sm text-muted-foreground">GPA</p>
+          <p className="font-semibold">{studentInfo.gpa}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Total Credits</p>
-                <p className="font-semibold">{studentInfo.credits}</p>
+          <p className="text-sm text-muted-foreground">Total Credits</p>
+          <p className="font-semibold">{studentInfo.credits}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">Email</p>
-                <p className="font-semibold text-sm truncate">{userEmail}</p>
+          <p className="text-sm text-muted-foreground">Email</p>
+          <p className="font-semibold text-sm truncate">{userEmail}</p>
               </div>
             </div>
           </CardContent>
         </Card>
-
+        <div>
+      <Link
+      to="/calendar"
+      className="inline-flex items-center gap-2 rounded-xl px-3 py-2 font-semibold"
+       // icon inherits this via currentColor
+        aria-label="Go to Today (BullRush)"
+        title="Go to Today (BullRush)"
+          >
+        <img src={BullRushLight} alt="BullRush Today icon" className="w-full h-full" />
+    </Link></div>
+ 
+            </div>
         <div className="grid md:grid-cols-3 gap-6">
           {/* Course Priorities */}
           <Card className="md:col-span-2 shadow-card">
@@ -209,6 +232,10 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </main>
+        <>
+      <ChatLauncher  title="BullsFocus Assistant" iconSrc={Ub_mascot}
+  placeholder="Life is good. Just do all is well"/>
+    </>
     </div>
   );
 };
