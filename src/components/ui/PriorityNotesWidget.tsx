@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState, ChangeEvent, KeyboardEvent } from "react";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { updateData, clearData } from '../../store/planSlice';
 /**
  * PriorityNotesWidget — compact, dynamic priority note-taker (TSX)
  * Scopes: today | week | month | semester | year
@@ -50,6 +51,7 @@ function saveStore(store: Store): void {
 }
 
 const PriorityNotesWidget: React.FC = () => {
+  const dispatch = useDispatch();
   const [scope, setScope] = useState<Scope>("today");
   const [input, setInput] = useState<string>("");
   const [store, setStore] = useState<Store>(() => loadStore());
@@ -88,6 +90,9 @@ async function addNote(): Promise<void> {
         priorities:text,           // note text
       }),
     });
+    const result = await resp.json();
+console.log(result)
+    dispatch(updateData(result));
 
     if (!resp.ok) throw new Error(`Server responded ${resp.status}`);
     const data: CreateNoteResponse = await resp.json();

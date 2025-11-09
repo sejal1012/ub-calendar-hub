@@ -1,6 +1,9 @@
 import { Calendar, momentLocalizer } from "react-big-calendar"
 import moment from 'moment'
 import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from '../store/store';
+import { updateData, clearData } from '../store/planSlice';
 
 const localizer = momentLocalizer(moment)
 
@@ -34,8 +37,9 @@ const dummyData = [
 ]
 
 const MyCalendar = ({ todayData = dummyData }) => {
-  const [events, setEvents] = useState(dummyData)
-
+  const plan = useSelector((state: RootState) => state.data.value);
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     if (todayData && todayData !== dummyData) {
       // Assuming todayData is an array of events with proper date fields
@@ -44,7 +48,7 @@ const MyCalendar = ({ todayData = dummyData }) => {
         start: new Date(event.start),
         end: new Date(event.end || event.start),
       }))
-      setEvents(formattedEvents)
+      dispatch(updateData({plan:formattedEvents}));
     }
   }, [todayData])
 
@@ -52,7 +56,7 @@ const MyCalendar = ({ todayData = dummyData }) => {
     <div className='h-screen'>
       <Calendar
         localizer={localizer}
-        events={events}
+        events={plan}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 800 }}
